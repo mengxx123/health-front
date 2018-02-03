@@ -1,25 +1,21 @@
 <template>
     <my-page title="BMI 身体质量指数">
         <div>
-            <my-form-item label="身高（cm）：">
-                <ui-text-field v-model.number="height" hintText="如：173"/>
-            </my-form-item>
-            <my-form-item label="体重（kg）：">
-                <ui-text-field v-model.number="weight" hintText="如：65"/>
-            </my-form-item>
-            <my-form-item>
-                <ui-raised-button label="计算" class="demo-raised-button" primary @click="calculate"/>
-            </my-form-item>
+            <div>
+                <ui-text-field v-model.number="height" label="身高（cm）" hintText="如：173"/>
+            </div>
+            <div>
+                <ui-text-field v-model.number="weight" label="体重（kg）" hintText="如：65"/>
+            </div>
+            <ui-raised-button label="计算" class="demo-raised-button" primary @click="calculate"/>
         </div>
         <div class="result" v-if="result">
-            <h4 class="result-title">计算结果</h4>
-            <ul class="result-list">
-                <ui-paper class="paper" :zDepth="1">
-                    <li>你的 BMI 值: <span class="strong">{{ result.bmi }}</span></li>
-                    <li>身体状态：<span class="strong">{{ result.state }}</span></li>
-                    <li>你的理想体重为：<span class="strong">{{ result.weight }}kg</span></li>
-                </ui-paper>
-            </ul>
+            <ui-paper class="paper" :zDepth="1">
+                <h4 class="title">计算结果</h4>
+                <li>你的 BMI 值: <span class="strong">{{ result.bmi }}</span></li>
+                <li>身体状态：<span class="strong">{{ result.state }}</span></li>
+                <li>你的理想体重为：<span class="strong">{{ result.weight }}kg</span></li>
+            </ui-paper>
             <ui-article>
                 <p><strong>参考：</strong></p>
                 <table>
@@ -112,11 +108,15 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .paper {
         width: 240px;
         padding: 16px;
         margin: 16px 0;
+        .title {
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
     }
     .input-box {
     }
@@ -137,10 +137,6 @@
     .tool-box .result .result-title {
         margin: 8px 0;
         font-weight: bold;
-    }
-    .tool-box .result-list {}
-    .tool-box .result-list li {
-        margin-bottom: 8px;
     }
     .tool-box .result-list .strong {
         color: #f60;
