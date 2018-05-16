@@ -1,5 +1,5 @@
 <template>
-    <my-page title="帮助">
+    <my-page title="帮助" backable>
         <ui-article class="article">
             <h2>工具介绍</h2>
             <p>本工具用于计算 BMI 值。</p>

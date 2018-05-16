@@ -1,5 +1,5 @@
 <template>
-    <my-page title="BMI 身体质量指数">
+    <my-page title="BMI 身体质量指数" :page="page">
         <div>
             <div>
                 <ui-text-field v-model.number="height" label="身高（cm）" hintText="如：173"/>
@@ -7,7 +7,10 @@
             <div>
                 <ui-text-field v-model.number="weight" label="体重（kg）" hintText="如：65"/>
             </div>
-            <ui-raised-button label="计算" class="demo-raised-button" primary @click="calculate"/>
+            <div class="btns">
+                <ui-raised-button label="计算" class="btn" primary @click="calculate"/>
+                <ui-raised-button label="记录" class="btn" secondary @click="save" v-if="result"/>
+            </div>
         </div>
         <div class="result" v-if="result">
             <ui-paper class="paper" :zDepth="1">
@@ -51,7 +54,17 @@
             return {
                 height: '',
                 weight: '',
-                result: null
+                result: null,
+                page: {
+                    menu: [
+                        {
+                            type: 'icon',
+                            icon: 'help',
+                            to: '/help',
+                            title: '帮助'
+                        }
+                    ]
+                }
             }
         },
         mounted() {
@@ -66,7 +79,7 @@
                     this.weight = this.$storage.get('weight')
                 }
             },
-            calculate: function () {
+            calculate() {
                 if (!this.height) {
                     alert('请输入你的身高')
                     return
@@ -91,18 +104,40 @@
 
                 this.result = {}
                 this.result.bmi = (this.weight / (height * height)).toFixed(1)
-
-                if (this.result.bmi <= 18.4) {
-                    this.result.state = '偏瘦'
-                } else if (this.bmi < 24) {
-                    this.result.state = '正常'
-                } else if (this.bmi < 28) {
-                    this.result.state = '过重'
-                } else {
-                    this.result.state = '肥胖'
-                }
-
+                this.result.state = this.getBmiText(this.result.bmi)
+                // if (this.result.bmi <= 18.4) {
+                //     this.result.state = '偏瘦'
+                // } else if (this.bmi < 24) {
+                //     this.result.state = '正常'
+                // } else if (this.bmi < 28) {
+                //     this.result.state = '过重'
+                // } else {
+                //     this.result.state = '肥胖'
+                // }
                 this.result.weight = ((23.9 + 18.5) / 2 * (height * height)).toFixed(1)
+            },
+            getBmiText(bmi) {
+                if (bmi <= 18.4) {
+                    return '偏瘦'
+                } else if (bmi < 24) {
+                    return '标准'
+                } else if (bmi < 28) {
+                    return '过重'
+                } else {
+                    return '肥胖'
+                }
+            },
+            save() {
+                let logs = this.$storage.get('logs', [])
+                logs.push({
+                    id: new Date().getTime(),
+                    height: this.height,
+                    weight: this.weight,
+                    bmi: this.result.bmi,
+                    createTime: new Date().getTime()
+                })
+                this.$storage.set('logs', logs)
+                this.$router.push('/weight')
             }
         }
     }
@@ -118,28 +153,12 @@
             margin-bottom: 16px;
         }
     }
-    .input-box {
-    }
-    .input-box .tip {
-        margin-bottom: 16px;
-        color: #999;
-    }
-    .input-box textarea {
-        margin-bottom: 16px;
-    }
-    .input-box .result {
-        margin-top: 16px;
-    }
     .table {
         width: 240px;
     }
-    .tool-box .result {}
-    .tool-box .result .result-title {
-        margin: 8px 0;
-        font-weight: bold;
-    }
-    .tool-box .result-list .strong {
-        color: #f60;
-        font-weight: bold;
+    .btns {
+        .btn {
+            margin-right: 8px;
+        }
     }
 </style>
