@@ -12,10 +12,6 @@
                 <ui-raised-button label="记录" class="btn" secondary @click="save" v-if="result"/>
             </div>
         </div>
-        isInFrame：{{ isInFrame }}
-        <div>
-           embed: {{ asd }}, {{ embed }} 
-        </div>
         <div class="result" v-if="result">
             <ui-paper class="paper" :zDepth="1">
                 <h4 class="title">计算结果</h4>
@@ -68,18 +64,10 @@
                             title: '帮助'
                         }
                     ]
-                },
-                isInFrame: '',
-                embed: '',
-                asd: ''
+                }
             }
         },
         mounted() {
-            this.isInFrame = window.self !== window.top
-            console.log('12')
-            console.log(this.$route.query.embed)
-            this.asd = typeof this.$route.query.embed + ' ' + this.$route.query.embed
-            this.embed = this.$route.query.embed === 'true' && this.isInFrame
             this.init()
         },
         methods: {
