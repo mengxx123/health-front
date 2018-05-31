@@ -6,6 +6,10 @@ const Help = resolve => require(['@/views/Help'], resolve)
 const About = resolve => require(['@/views/About'], resolve)
 const Weight = resolve => require(['@/views/Weight'], resolve)
 const Timeline = resolve => require(['@/views/Timeline'], resolve)
+const HeartRate = resolve => require(['@/views/HeartRate'], resolve)
+const HeartRateHelp = resolve => require(['@/views/HeartRateHelp'], resolve)
+const Birth = resolve => require(['@/views/Birth'], resolve)
+const BirthHelp = resolve => require(['@/views/BirthHelp'], resolve)
 const Error404 = resolve => require(['@/views/error/Error404'], resolve)
 
 Vue.use(Router)
@@ -26,6 +30,22 @@ let routes = [
     {
         path: '/weight',
         component: Weight
+    },
+    {
+        path: '/heartRate',
+        component: HeartRate
+    },
+    {
+        path: '/heartRate/help',
+        component: HeartRateHelp
+    },
+    {
+        path: '/birth',
+        component: Birth
+    },
+    {
+        path: '/birth/help',
+        component: BirthHelp
     },
     {
         path: '/timeline',
