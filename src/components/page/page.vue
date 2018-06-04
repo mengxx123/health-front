@@ -9,6 +9,9 @@
                 <ui-list-item title="体重记录" to="/weight">
                     <ui-icon slot="left" value="grade"/>
                 </ui-list-item>
+                <ui-list-item title="标准三围计算器" to="/bwh">
+                    <ui-icon slot="left" value="grade"/>
+                </ui-list-item>
                 <ui-list-item title="最大心率计算器" to="/heartRate">
                     <ui-icon slot="left" value="grade"/>
                 </ui-list-item>

@@ -10,6 +10,8 @@ const HeartRate = resolve => require(['@/views/HeartRate'], resolve)
 const HeartRateHelp = resolve => require(['@/views/HeartRateHelp'], resolve)
 const Birth = resolve => require(['@/views/Birth'], resolve)
 const BirthHelp = resolve => require(['@/views/BirthHelp'], resolve)
+const Bwh = resolve => require(['@/views/Bwh'], resolve)
+const BwhHelp = resolve => require(['@/views/BwhHelp'], resolve)
 const Error404 = resolve => require(['@/views/error/Error404'], resolve)
 
 Vue.use(Router)
@@ -50,6 +52,14 @@ let routes = [
     {
         path: '/timeline',
         component: Timeline
+    },
+    {
+        path: '/bwh',
+        component: Bwh
+    },
+    {
+        path: '/bwh/help',
+        component: BwhHelp
     },
     {
         path: '/404',
