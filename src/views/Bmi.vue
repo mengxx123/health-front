@@ -52,8 +52,8 @@
     export default {
         data () {
             return {
-                height: '',
-                weight: '',
+                height: null,
+                weight: null,
                 result: null,
                 page: {
                     menu: [
@@ -72,6 +72,11 @@
         },
         methods: {
             init() {
+                this.height = this.$route.query.height
+                this.weight = this.$route.query.weight
+                if (this.height && this.weight) {
+                    this.calculate()
+                }
                 if (this.$storage.get('height')) {
                     this.height = this.$storage.get('height')
                 }

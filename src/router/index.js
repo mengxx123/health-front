@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const Home = resolve => require(['@/views/Home'], resolve)
+const Bmi = resolve => require(['@/views/Bmi'], resolve)
 const Help = resolve => require(['@/views/Help'], resolve)
 const About = resolve => require(['@/views/About'], resolve)
 const Weight = resolve => require(['@/views/Weight'], resolve)
@@ -19,7 +19,11 @@ Vue.use(Router)
 let routes = [
     {
         path: '/',
-        component: Home
+        redirect: '/bmi'
+    },
+    {
+        path: '/bmi',
+        component: Bmi
     },
     {
         path: '/help',

@@ -33,6 +33,11 @@
             }
         },
         mounted() {
+            let height = this.$route.query.height
+            if (height) {
+                this.height = parseInt(height)
+                this.calculate()
+            }
         },
         methods: {
             calculate() {
