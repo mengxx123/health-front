@@ -18,6 +18,9 @@
                 <ui-list-item title="预产期计算器" to="/birth">
                     <ui-icon slot="left" value="grade"/>
                 </ui-list-item>
+                <ui-list-item title="体脂率计算器" to="/bodyFat">
+                    <ui-icon slot="left" value="grade"/>
+                </ui-list-item>
                 <ui-list-item title="关于" to="/about">
                     <ui-icon slot="left" value="grade"/>
                 </ui-list-item>

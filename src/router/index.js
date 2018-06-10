@@ -12,6 +12,8 @@ const Birth = resolve => require(['@/views/Birth'], resolve)
 const BirthHelp = resolve => require(['@/views/BirthHelp'], resolve)
 const Bwh = resolve => require(['@/views/Bwh'], resolve)
 const BwhHelp = resolve => require(['@/views/BwhHelp'], resolve)
+const BodyFat = resolve => require(['@/views/BodyFat'], resolve)
+const BodyFatHelp = resolve => require(['@/views/BodyFatHelp'], resolve)
 const Error404 = resolve => require(['@/views/error/Error404'], resolve)
 
 Vue.use(Router)
@@ -64,6 +66,14 @@ let routes = [
     {
         path: '/bwh/help',
         component: BwhHelp
+    },
+    {
+        path: '/bodyFat',
+        component: BodyFat
+    },
+    {
+        path: '/bodyFat/help',
+        component: BodyFatHelp
     },
     {
         path: '/404',
