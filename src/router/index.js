@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+const Home = resolve => require(['@/views/Home'], resolve)
 const Bmi = resolve => require(['@/views/Bmi'], resolve)
 const Help = resolve => require(['@/views/Help'], resolve)
 const About = resolve => require(['@/views/About'], resolve)
@@ -14,6 +15,8 @@ const Bwh = resolve => require(['@/views/Bwh'], resolve)
 const BwhHelp = resolve => require(['@/views/BwhHelp'], resolve)
 const BodyFat = resolve => require(['@/views/BodyFat'], resolve)
 const BodyFatHelp = resolve => require(['@/views/BodyFatHelp'], resolve)
+const MedicalCheck = resolve => require(['@/views/MedicalCheck'], resolve)
+const MedicalTable = resolve => require(['@/views/MedicalTable'], resolve)
 const Error404 = resolve => require(['@/views/error/Error404'], resolve)
 
 Vue.use(Router)
@@ -21,7 +24,7 @@ Vue.use(Router)
 let routes = [
     {
         path: '/',
-        redirect: '/bmi'
+        component: Home
     },
     {
         path: '/bmi',
@@ -74,6 +77,14 @@ let routes = [
     {
         path: '/bodyFat/help',
         component: BodyFatHelp
+    },
+    {
+        path: '/medical_check',
+        component: MedicalCheck
+    },
+    {
+        path: '/medical_table',
+        component: MedicalTable
     },
     {
         path: '/404',
