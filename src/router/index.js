@@ -17,7 +17,9 @@ const BodyFat = resolve => require(['@/views/BodyFat'], resolve)
 const BodyFatHelp = resolve => require(['@/views/BodyFatHelp'], resolve)
 const MedicalCheck = resolve => require(['@/views/MedicalCheck'], resolve)
 const MedicalTable = resolve => require(['@/views/MedicalTable'], resolve)
+const Me = resolve => require(['@/views/Me'], resolve)
 const Error404 = resolve => require(['@/views/error/Error404'], resolve)
+const OauthCallback = resolve => require(['@/views/oauth/Callback'], resolve)
 
 Vue.use(Router)
 
@@ -87,8 +89,16 @@ let routes = [
         component: MedicalTable
     },
     {
+        path: '/me',
+        component: Me
+    },
+    {
         path: '/404',
         component: Error404
+    },
+    {
+        path: '/oauth/callback',
+        component: OauthCallback
     },
     {
         path: '*',

@@ -5,7 +5,10 @@
                 <img class="logo" src="/static/img/health_heart.svg">
             </div>
             <ui-list @itemClick="toggle()">
-                <ui-list-item title="首页" to="/">
+                <ui-list-item title="应用" to="/">
+                    <ui-icon slot="left" value="grade"/>
+                </ui-list-item>
+                <ui-list-item title="健康数据" to="/me">
                     <ui-icon slot="left" value="grade"/>
                 </ui-list-item>
                 <ui-list-item title="生活" href="https://life.yunser.com/" target="_blank">
