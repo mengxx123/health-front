@@ -1,27 +1,29 @@
 <template>
     <my-page title="最大心率计算器" :page="page">
-        <div>
-            <ui-text-field v-model.number="age" label="年龄" hintText=""/>
-        </div>
-        <div class="btns">
-            <ui-raised-button label="查看结果" class="btn" primary @click="showResult"/>
-            <ui-raised-button label="我要重做" class="btn" @click="reset" />
-        </div>
-        <div class="result" v-if="result">
-            <ul class="result-list">
-                <li>在 60 秒内，</li>
-                <!--<li>在
-                    <select v-model="second">
-                        <option value="6">6秒</option>
-                        <option selected="selected" value="10">10秒</option>
-                        <option value="15">15秒</option>
-                        <option value="30">30秒</option>
-                        <option value="60">60秒</option>
-                    </select>内，
-                </li>-->
-                <li>最大心率： <span class="strong">{{ result.maxRate }}</span> 下；</li>
-                <li>靶心率： <span class="strong">{{ result.rate1 }}</span> 下到 <span class="strong">{{ result.rate2 }}</span> 下之间。</li>
-            </ul>
+        <div class="common-container">
+            <div>
+                <ui-text-field v-model.number="age" label="年龄" hintText=""/>
+            </div>
+            <div class="btns">
+                <ui-raised-button label="查看结果" class="btn" primary @click="showResult"/>
+                <ui-raised-button label="我要重做" class="btn" @click="reset" />
+            </div>
+            <div class="result" v-if="result">
+                <ul class="result-list">
+                    <li>在 60 秒内，</li>
+                    <!--<li>在
+                        <select v-model="second">
+                            <option value="6">6秒</option>
+                            <option selected="selected" value="10">10秒</option>
+                            <option value="15">15秒</option>
+                            <option value="30">30秒</option>
+                            <option value="60">60秒</option>
+                        </select>内，
+                    </li>-->
+                    <li>最大心率： <span class="strong">{{ result.maxRate }}</span> 下；</li>
+                    <li>靶心率： <span class="strong">{{ result.rate1 }}</span> 下到 <span class="strong">{{ result.rate2 }}</span> 下之间。</li>
+                </ul>
+            </div>
         </div>
     </my-page>
 </template>
@@ -39,7 +41,8 @@
                         {
                             type: 'icon',
                             icon: 'help',
-                            to: '/heartRate/help',
+                            href: 'https://project.yunser.com/products/cf644730583411e9ac3981c0eb0eea3e',
+                            target: '_blank',
                             title: '帮助'
                         }
                     ]

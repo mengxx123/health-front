@@ -1,18 +1,20 @@
 <template>
     <my-page title="记录" backable>
-        <ui-article>
-            <div class="empty" v-if="!logs.length">暂无记录</div>
-            <table>
-                <tr>
-                    <td>体重</td>
-                    <td>记录时间</td>
-                </tr>
-                <tr v-for="log in logs">
-                    <td>{{ log.weight }}</td>
-                    <td>{{ log.createTime | time }}</td>
-                </tr>
-            </table>
-        </ui-article>
+        <div class="common-container">
+            <ui-article>
+                <div class="empty" v-if="!logs.length">暂无记录</div>
+                <table>
+                    <tr>
+                        <td>体重</td>
+                        <td>记录时间</td>
+                    </tr>
+                    <tr v-for="log in logs">
+                        <td>{{ log.weight }}</td>
+                        <td>{{ log.createTime | time }}</td>
+                    </tr>
+                </table>
+            </ui-article>
+        </div>
     </my-page>
 </template>
 

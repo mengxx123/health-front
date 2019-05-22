@@ -6,16 +6,19 @@
             </div>
             <ui-list @itemClick="toggle()">
                 <ui-list-item title="应用" to="/">
-                    <ui-icon slot="left" value="grade"/>
+                    <ui-icon slot="left" value="home"/>
                 </ui-list-item>
                 <ui-list-item title="健康数据" to="/me">
                     <ui-icon slot="left" value="grade"/>
                 </ui-list-item>
-                <ui-list-item title="生活" href="https://life.yunser.com/" target="_blank">
+                <ui-list-item title="运动" to="/sport">
                     <ui-icon slot="left" value="grade"/>
                 </ui-list-item>
+                <ui-list-item title="生活" href="https://life.yunser.com/" target="_blank">
+                    <ui-icon slot="left" value="link"/>
+                </ui-list-item>
                 <ui-list-item title="关于" href="https://project.yunser.com/products/768c65305c5811e888a50737631f72f2" target="_blank">
-                    <ui-icon slot="left" value="grade"/>
+                    <ui-icon slot="left" value="info"/>
                 </ui-list-item>
             </ui-list>
         </div>

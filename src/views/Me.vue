@@ -1,51 +1,73 @@
 <template>
     <my-page title="健康数据" :page="page">
-        <a href="javascript:;" v-if="!$store.state.user" @click="login">点击登陆</a>
+        <div>
+            <a href="javascript:;" v-if="!$store.state.user" @click="login">点击登陆</a>
+        </div>
+        <div class="common-container container">
+            <div class="container" v-if="$store.state.user">
+                <!-- <div class="pui-section-title">身体数据</div> -->
+                <ul class="data-list">
+                    <li class="item2" v-if="height">
+                        <router-link class="item linkable" to="height">
+                            <div class="title">身高</div>
+                            <div class="content">
+                                <div class="value">
+                                    <div class="number">{{ height.height }}</div>
+                                    <div class="unit">厘米</div>
+                                </div>
+                                <!-- <div class="time">{{ height.recordTime }}</div> -->
+                            </div>
+                        </router-link>
+                    </li>
+                    <div v-else>没有身高数据</div>
 
-        <div class="container" v-if="$store.state.user">
-            <div class="section-title">个人数据</div>
-            <ul class="data-list">
-                <li class="item" v-if="height">
-                    <div class="title">身高</div>
-                    <div class="content">
-                        <div class="value">
-                            <div class="number">{{ height.height }}</div>
-                            <div class="unit">厘米</div>
-                        </div>
-                        <div class="time">{{ height.recordTime }}</div>
-                    </div>
-                </li>
-                <div v-else>没有身高数据</div>
+                    <li class="item2" v-if="weight">
+                        <router-link class="item linkable" to="weight2">
+                            <div class="title">体重</div>
+                            <div class="content">
+                                <div class="value">
+                                    <div class="number">{{ weight.weight }}</div>
+                                    <div class="unit">公斤</div>
+                                </div>
+                                <!-- <div class="time">{{ weight.recordTime }}</div> -->
+                            </div>
+                        </router-link>
+                    </li>
+                    <div v-else>没有体重数据</div>
 
-                <li class="item" v-if="weight">
-                    <div class="title">体重</div>
-                    <div class="content">
-                        <div class="value">
-                            <div class="number">{{ weight.weight }}</div>
-                            <div class="unit">公斤</div>
+                    <li class="item" v-if="heartRate">
+                        <div class="title">心率</div>
+                        <div class="content">
+                            <div class="value">
+                                <div class="number">{{ heartRate.rate }}</div>
+                                <div class="unit">次/分钟</div>
+                            </div>
+                            <!-- <div class="time">{{ heartRate.recordTime }}</div> -->
                         </div>
-                        <div class="time">{{ weight.recordTime }}</div>
-                    </div>
-                </li>
-                <div v-else>没有体重数据</div>
+                    </li>
+                    <div v-else>没有心率数据</div>
 
-                <!-- <li class="item">
-                    <div class="title">BMI（开发中）</div>
-                    <div class="content">
-                        <div class="value">
-                            <div class="number">21.00</div>
-                            <div class="unit">BMI</div>
+                    <!-- <li class="item">
+                        <div class="title">BMI（开发中）</div>
+                        <div class="content">
+                            <div class="value">
+                                <div class="number">21.00</div>
+                                <div class="unit">BMI</div>
+                            </div>
+                            <div class="time">今天 下午6:13</div>
                         </div>
-                        <div class="time">今天 下午6:13</div>
-                    </div>
-                </li> -->
-            </ul>
-            <!-- <div class="section-title">应用推荐（开发中）</div> -->
+                    </li> -->
+                </ul>
+                
+                <!-- <div class="pui-section-title">应用推荐（开发中）</div> -->
+                <!-- <ui-float-button class="float-button" icon="add" secondary @click="add" /> -->
+            </div>
         </div>
     </my-page>
 </template>
 
 <script>
+    /* eslint-disable */
     import oss from '@/util/oss'
 
     const moment = window.moment
@@ -53,8 +75,14 @@
     export default {
         data () {
             return {
+                pushUp: null,
+                sitUp: null,
                 height: null,
                 weight: null,
+                heartRate: null,
+                running: null,
+                walk: null,
+                cycle: null,
                 page: {
                     menu: [
                     ]
@@ -64,9 +92,14 @@
         computed: {
         },
         mounted() {
+            let asd = 1275 / 3.04
+            console.log('asd', asd / 60, asd % 60)
             this.loadData()
         },
         methods: {
+            add() {
+                this.$router.push('/weight/add')
+            },
             loadData() {
                 let user = this.$store.state.user
                 if (!user) {
@@ -100,6 +133,20 @@
                         }
                         this.loading = false
                     })
+                this.$http.get(`/heartRate/logs/latest`).then(
+                    response => {
+                        let data = response.data
+                        console.log('latest2', data)
+                        this.heartRate = data
+                        this.heartRate.recordTime = moment(this.heartRate.recordTime).format('YYYY-MM-DD HH:mm')
+                    },
+                    response => {
+                        console.log('cuol')
+                        if (response.code === 403) {
+                            this.$store.state.user = null
+                        }
+                        this.loading = false
+                    })
             },
             init() {
             },
@@ -121,45 +168,13 @@
     max-width: 400px;
     margin: 0 auto;
 }
-.section-title {
-    font-size: 24px;
-    margin: 16px 0;
+
+.float-button {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
 }
-.data-list {
-    .item {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 8px;
-        padding: 8px 16px;
-        background-color: rgb(236, 129, 6);
-        // border: 1px solid #000;
-        color: #fff;
-        border-radius: 4px;
-    }
-    .title {
-        font-size: 16px;
-    }
-    .content {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-    }
-    .value {
-        display: flex;
-        align-items: flex-end;
-        margin-bottom: 8px;
-    }
-    .number {
-        font-size: 32px;
-        line-height: 1;
-    }
-    .unit {
-        margin-left: 8px;
-    }
-    .time {
-        color: rgb(252, 225, 199);
-    }
-}
+
 .tool-list {
     max-width: 840px;
     margin: 0 auto;

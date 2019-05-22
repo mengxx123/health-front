@@ -1,53 +1,55 @@
 <template>
     <my-page title="体重记录" :page="page">
-        <div class="empty" v-if="!showData">
-            暂无记录，<router-link to="/">去记录</router-link>
-        </div>
-        <div class="container" v-if="showData">
-            <div class="weight">
-                <span class="number">{{ showData.weight }}</span>
-                <span class="unit">公斤</span>
+        <div class="common-container">
+            <div class="empty" v-if="!showData">
+                暂无记录，<router-link to="/">去记录</router-link>
             </div>
-            <ul class="data-list">
-                <li class="item">
-                    <div class="title">目标</div>
-                    <div class="content">
-                        <span class="number">{{ targetWeight }}</span>
-                        <span class="unit">公斤</span>
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="title">BMI</div>
-                    <div class="content">
-                        <span class="number">{{ showData.bmi }}</span>
-                        <ui-badge :content="showData.text" />
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="title">比上次</div>
-                    <div class="content">
-                        <span class="number">{{ showData.change }}</span>
-                        <span class="unit">公斤</span>
-                    </div>
-                </li>
-            </ul>
-            <!-- <schart :canvasId="canvasId"
-                :type="type"
-                :width="width"
-                :height="height"
-                :data="data"
-                :options="options"
-            ></schart> -->
-        </div>
-        <ui-drawer class="setting-box" right :open="settingOpen" :docked="false" @close="toggleSetting()">
-            <ui-appbar title="设置">
-                <ui-icon-button icon="close" slot="left" title="关闭" @click="toggleSetting" />
-            </ui-appbar>
-            <div class="body">
-                <ui-text-field type="number" v-model="targetWeight" label="目标体重" />
+            <div class="container" v-if="showData">
+                <div class="weight">
+                    <span class="number">{{ showData.weight }}</span>
+                    <span class="unit">公斤</span>
+                </div>
+                <ul class="data-list">
+                    <li class="item">
+                        <div class="title">目标</div>
+                        <div class="content">
+                            <span class="number">{{ targetWeight }}</span>
+                            <span class="unit">公斤</span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">BMI</div>
+                        <div class="content">
+                            <span class="number">{{ showData.bmi }}</span>
+                            <ui-badge :content="showData.text" />
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">比上次</div>
+                        <div class="content">
+                            <span class="number">{{ showData.change }}</span>
+                            <span class="unit">公斤</span>
+                        </div>
+                    </li>
+                </ul>
+                <!-- <schart :canvasId="canvasId"
+                    :type="type"
+                    :width="width"
+                    :height="height"
+                    :data="data"
+                    :options="options"
+                ></schart> -->
             </div>
-        </ui-drawer>
-        <div class="create-time" v-if="showData">{{ createTime }} 更新</div>
+            <ui-drawer class="setting-box" right :open="settingOpen" :docked="false" @close="toggleSetting()">
+                <ui-appbar title="设置">
+                    <ui-icon-button icon="close" slot="left" title="关闭" @click="toggleSetting" />
+                </ui-appbar>
+                <div class="body">
+                    <ui-text-field type="number" v-model="targetWeight" label="目标体重" />
+                </div>
+            </ui-drawer>
+            <div class="create-time" v-if="showData">{{ createTime }} 更新</div>
+        </div>
     </my-page>
 </template>
 

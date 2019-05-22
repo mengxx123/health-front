@@ -1,63 +1,65 @@
 <template>
     <my-page title="体脂率计算器" :page="page">
-        <div>
-            <form name="bfForm"  id="toolsForm">
-                <ul class="list_3">
-                    <li class="sex">
-                        <span>性别：</span>
-                        <label>
-                            <input name="sex" checked="checked" type="radio" value="1">
-                            男
-                        </label>
-                        <label>
-                            <input name="sex" type="radio" value="2">
-                            女
-                        </label>
-                    </li>
-                </ul>
-            </form>
-            <!-- <div>
-                <ui-radio class="demo-radio" v-model="input.sex" label="男" name="group" nativeValue="1"/>
-                <ui-radio class="demo-radio" v-model="input.sex" label="女" name="group" nativeValue="2"/>
-            </div> -->
+        <div class="common-container">
             <div>
-                <ui-text-field v-model.number="input.age" type="number" label="年龄（岁）" />
-            </div>
-            <div>
-                <ui-text-field v-model.number="input.weight" type="number" label="体重（公斤、KG）" />
-            </div>
-            <div>
-                <ui-text-field v-model.number="input.height" type="number" label="身高（厘米、CM）" />
-            </div>
-            <div>
-                <ui-text-field v-model.number="input.abd" type="number" label="腰围（CM（厘米））" />
-                <ui-icon class="icon" value="help" @click="showHelp(1)" />
-            </div>
-            <div>
-                <ui-text-field v-model.number="input.iliac" type="number" label="髂骨（CM（厘米））" />
-                <ui-icon class="icon" value="help" @click="showHelp(2)" />
-            </div>
-            <div>
-                <ui-text-field v-model.number="input.hips" type="number" label="臀围（CM（厘米））" />
-                <ui-icon class="icon" value="help" @click="showHelp(3)" />
-            </div>
-        </div>
-        <div>
-            <!-- <div>
-                <ui-text-field v-model.number="height" label="身高（cm）" hintText="如：173"/>
+                <form name="bfForm"  id="toolsForm">
+                    <ul class="list_3">
+                        <li class="sex">
+                            <span>性别：</span>
+                            <label>
+                                <input name="sex" checked="checked" type="radio" value="1">
+                                男
+                            </label>
+                            <label>
+                                <input name="sex" type="radio" value="2">
+                                女
+                            </label>
+                        </li>
+                    </ul>
+                </form>
+                <!-- <div>
+                    <ui-radio class="demo-radio" v-model="input.sex" label="男" name="group" nativeValue="1"/>
+                    <ui-radio class="demo-radio" v-model="input.sex" label="女" name="group" nativeValue="2"/>
+                </div> -->
+                <div>
+                    <ui-text-field v-model.number="input.age" type="number" label="年龄（岁）" />
+                </div>
+                <div>
+                    <ui-text-field v-model.number="input.weight" type="number" label="体重（公斤、KG）" />
+                </div>
+                <div>
+                    <ui-text-field v-model.number="input.height" type="number" label="身高（厘米、CM）" />
+                </div>
+                <div>
+                    <ui-text-field v-model.number="input.abd" type="number" label="腰围（CM（厘米））" />
+                    <ui-icon class="icon" value="help" @click="showHelp(1)" />
+                </div>
+                <div>
+                    <ui-text-field v-model.number="input.iliac" type="number" label="髂骨（CM（厘米））" />
+                    <ui-icon class="icon" value="help" @click="showHelp(2)" />
+                </div>
+                <div>
+                    <ui-text-field v-model.number="input.hips" type="number" label="臀围（CM（厘米））" />
+                    <ui-icon class="icon" value="help" @click="showHelp(3)" />
+                </div>
             </div>
             <div>
-                <ui-text-field v-model.number="weight" label="体重（kg）" hintText="如：65"/>
-            </div> -->
-            <div class="btns">
-                <ui-raised-button label="计算" class="btn" primary @click="calculate"/>
+                <!-- <div>
+                    <ui-text-field v-model.number="height" label="身高（cm）" hintText="如：173"/>
+                </div>
+                <div>
+                    <ui-text-field v-model.number="weight" label="体重（kg）" hintText="如：65"/>
+                </div> -->
+                <div class="btns">
+                    <ui-raised-button label="计算" class="btn" primary @click="calculate"/>
+                </div>
             </div>
-        </div>
-        <div class="result" v-if="result">
-            <ui-paper class="paper" :zDepth="1">
-                <li>体脂率： <span class="strong">{{ result.fbw }}</span></li>
-                <li>去脂后的体重：<span class="strong">{{ result.fbw2 }}</span></li>
-            </ui-paper>
+            <div class="result" v-if="result">
+                <ui-paper class="paper" :zDepth="1">
+                    <li>体脂率： <span class="strong">{{ result.fbw }}</span></li>
+                    <li>去脂后的体重：<span class="strong">{{ result.fbw2 }}</span></li>
+                </ui-paper>
+            </div>
         </div>
         <ui-drawer class="help-box" right :open="open" :docked="false" @close="toggle()">
             <ui-appbar :title="helpTitle">

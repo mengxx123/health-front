@@ -1,60 +1,62 @@
 <template>
     <my-page title="问题疫苗检测">
-        <div>
-            <ui-text-field v-model="code" label="疫苗批号" hintText="如：201605014-01"/>
-        </div>
-        <div class="btns">
-            <ui-raised-button label="查询" class="btn" primary @click="query"/>
-        </div>
-        <div class="ui-loading" v-if="loading">
-            <ui-circular-progress :size="24"/>
-        </div>
-        <div class="empty" v-if="result && !result.length">
-            <p class="strong">搜索不到数据。</p>
-            <p>官方公布数据中未检测到您所查询的疫苗批号。</p>
-            <p>可能有以下原因：</p>
-            <ul class="list">
-                <li class="item">① 疫苗批号输入错误，请再次核验；</li>
-                <li class="item">② 该疫苗生产企业未能及时上传信息；</li>
-                <li class="item">③ 该疫苗批号日期超出了官方公示：2007年-2018年。</li>
-            </ul>
-        </div>
-        <div v-if="result && result.length">
-            <div class="status" v-if="success">该疫苗是 <strong>合法疫苗</strong></div>
-            <div class="status" v-else>该疫苗是 <strong>问题疫苗</strong></div>
+        <div class="common-container">
+            <div>
+                <ui-text-field v-model="code" label="疫苗批号" hintText="如：201605014-01"/>
+            </div>
+            <div class="btns">
+                <ui-raised-button label="查询" class="btn" primary @click="query"/>
+            </div>
+            <div class="ui-loading" v-if="loading">
+                <ui-circular-progress :size="24"/>
+            </div>
+            <div class="empty" v-if="result && !result.length">
+                <p class="strong">搜索不到数据。</p>
+                <p>官方公布数据中未检测到您所查询的疫苗批号。</p>
+                <p>可能有以下原因：</p>
+                <ul class="list">
+                    <li class="item">① 疫苗批号输入错误，请再次核验；</li>
+                    <li class="item">② 该疫苗生产企业未能及时上传信息；</li>
+                    <li class="item">③ 该疫苗批号日期超出了官方公示：2007年-2018年。</li>
+                </ul>
+            </div>
+            <div v-if="result && result.length">
+                <div class="status" v-if="success">该疫苗是 <strong>合法疫苗</strong></div>
+                <div class="status" v-else>该疫苗是 <strong>问题疫苗</strong></div>
 
-            <ul class="result-list" v-if="result">
-                <li class="item" v-for="item in result">
-                    <div class="info">
-                        <span class="key">疫苗名称：</span>
-                        <span class="value">{{ item.name }}</span>
-                    </div>
-                    <div class="info" v-if="item.specification">
-                        <span class="key">疫苗规格：</span>
-                        <span class="value">{{ item.specification }}</span>
-                    </div>
-                    <div class="info">
-                        <span class="key">疫苗批号：</span>
-                        <span class="value">{{ item.batchNo }}</span>
-                    </div>
-                    <div class="info" v-if="item.endTime">
-                        <span class="key">有效期至：</span>
-                        <span class="value">{{ item.endTime }}</span>
-                    </div>
-                    <div class="info">
-                        <span class="key">生产企业：</span>
-                        <span class="value">{{ item.manufacturer }}</span>
-                    </div>
-                    <div class="info" v-if="success">
-                        <span class="key">签发结论：</span>
-                        <span class="value">{{ item.result }}</span>
-                    </div>
-                    <div class="info" v-else>
-                        <span class="key">药品异常：</span>
-                        <span class="value">该药品已被召回</span>
-                    </div>
-                </li>
-            </ul>
+                <ul class="result-list" v-if="result">
+                    <li class="item" v-for="item in result">
+                        <div class="info">
+                            <span class="key">疫苗名称：</span>
+                            <span class="value">{{ item.name }}</span>
+                        </div>
+                        <div class="info" v-if="item.specification">
+                            <span class="key">疫苗规格：</span>
+                            <span class="value">{{ item.specification }}</span>
+                        </div>
+                        <div class="info">
+                            <span class="key">疫苗批号：</span>
+                            <span class="value">{{ item.batchNo }}</span>
+                        </div>
+                        <div class="info" v-if="item.endTime">
+                            <span class="key">有效期至：</span>
+                            <span class="value">{{ item.endTime }}</span>
+                        </div>
+                        <div class="info">
+                            <span class="key">生产企业：</span>
+                            <span class="value">{{ item.manufacturer }}</span>
+                        </div>
+                        <div class="info" v-if="success">
+                            <span class="key">签发结论：</span>
+                            <span class="value">{{ item.result }}</span>
+                        </div>
+                        <div class="info" v-else>
+                            <span class="key">药品异常：</span>
+                            <span class="value">该药品已被召回</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </my-page>
 </template>

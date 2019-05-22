@@ -1,49 +1,51 @@
 <template>
     <my-page title="BMI 身体质量指数" :page="page">
-        <div>
+        <div class="common-container">
             <div>
-                <ui-text-field v-model.number="height" label="身高（cm）" hintText="如：173"/>
+                <div>
+                    <ui-text-field v-model.number="height" label="身高（cm）" hintText="如：173"/>
+                </div>
+                <div>
+                    <ui-text-field v-model.number="weight" label="体重（kg）" hintText="如：65"/>
+                </div>
+                <div class="btns">
+                    <ui-raised-button label="计算" class="btn" primary @click="calculate"/>
+                    <ui-raised-button label="记录" class="btn" secondary @click="save" v-if="result"/>
+                </div>
             </div>
-            <div>
-                <ui-text-field v-model.number="weight" label="体重（kg）" hintText="如：65"/>
+            <div class="result" v-if="result">
+                <ui-paper class="paper" :zDepth="1">
+                    <h4 class="title">计算结果</h4>
+                    <li>你的 BMI 值: <span class="strong">{{ result.bmi }}</span></li>
+                    <li>身体状态：<span class="strong">{{ result.state }}</span></li>
+                    <li>你的理想体重为：<span class="strong">{{ result.weight }}kg</span></li>
+                </ui-paper>
+                <ui-article>
+                    <p><strong>参考：</strong></p>
+                    <table>
+                        <tr style="background-color: #8DD8F8">
+                            <th>BMI 范围</th>
+                            <th>体质</th>
+                        </tr>
+                        <tr style="background-color: #ccc">
+                            <td>≤ 18.4</td>
+                            <td>偏瘦</td>
+                        </tr>
+                        <tr style="background-color: #66cc00">
+                            <td>18.5 ～ 23.9</td>
+                            <td>正常</td>
+                        </tr>
+                        <tr style="background-color: #ffff00">
+                            <td>24.0 ～ 27.9</td>
+                            <td>过重</td>
+                        </tr>
+                        <tr style="background-color: #ff9900">
+                            <td>≥ 28</td>
+                            <td>肥胖</td>
+                        </tr>
+                    </table>
+                </ui-article>
             </div>
-            <div class="btns">
-                <ui-raised-button label="计算" class="btn" primary @click="calculate"/>
-                <ui-raised-button label="记录" class="btn" secondary @click="save" v-if="result"/>
-            </div>
-        </div>
-        <div class="result" v-if="result">
-            <ui-paper class="paper" :zDepth="1">
-                <h4 class="title">计算结果</h4>
-                <li>你的 BMI 值: <span class="strong">{{ result.bmi }}</span></li>
-                <li>身体状态：<span class="strong">{{ result.state }}</span></li>
-                <li>你的理想体重为：<span class="strong">{{ result.weight }}kg</span></li>
-            </ui-paper>
-            <ui-article>
-                <p><strong>参考：</strong></p>
-                <table>
-                    <tr style="background-color: #8DD8F8">
-                        <th>BMI 范围</th>
-                        <th>体质</th>
-                    </tr>
-                    <tr style="background-color: #ccc">
-                        <td>≤ 18.4</td>
-                        <td>偏瘦</td>
-                    </tr>
-                    <tr style="background-color: #66cc00">
-                        <td>18.5 ～ 23.9</td>
-                        <td>正常</td>
-                    </tr>
-                    <tr style="background-color: #ffff00">
-                        <td>24.0 ～ 27.9</td>
-                        <td>过重</td>
-                    </tr>
-                    <tr style="background-color: #ff9900">
-                        <td>≥ 28</td>
-                        <td>肥胖</td>
-                    </tr>
-                </table>
-            </ui-article>
         </div>
     </my-page>
 </template>
@@ -62,6 +64,13 @@
                             icon: 'help',
                             to: '/help',
                             title: '帮助'
+                        },
+                        {
+                            type: 'icon',
+                            icon: 'info',
+                            href: 'https://project.yunser.com/products/9798ff80fbe111e8a644d75e0db84a23',
+                            target: '_blank',
+                            title: '关于'
                         }
                     ]
                 }
@@ -85,20 +94,33 @@
                 }
             },
             calculate() {
+                this.result = null
                 if (!this.height) {
-                    alert('请输入你的身高')
+                    this.$message({
+                        type: 'danger',
+                        text: '请输入身高'
+                    })
                     return
                 }
-                if (this.height < 100 || this.height > 200) {
-                    alert('请输入正确的身高')
+                if (this.height < 40 || this.height > 200) {
+                    this.$message({
+                        type: 'danger',
+                        text: '请输入正确的身高'
+                    })
                     return
                 }
                 if (!this.weight) {
-                    alert('请输入你的体重')
+                    this.$message({
+                        type: 'danger',
+                        text: '请输入体重'
+                    })
                     return
                 }
                 if (this.weight < 20 || this.weight > 100) {
-                    alert('请输入正确的体重')
+                    this.$message({
+                        type: 'danger',
+                        text: '请输入正确的体重'
+                    })
                     return
                 }
 

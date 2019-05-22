@@ -1,6 +1,6 @@
 <template>
     <my-page title="预产期计算器" :page="page">
-        <div>
+        <div class="common-container">
             <div>
                 <ui-text-field v-model.number="cycle" type="number" label="平均月经周期（天）" hintText=""/>
                 <input v-model="luteal" type="hidden" name="luteal" size="3" value="14">
