@@ -1,17 +1,17 @@
 <template>
-    <my-page title="骑行" :page="page">
-        <div class="common-container container">
+    <my-page title="深蹲" :page="page">
+        <div class="common-container">
             <a href="javascript:;" v-if="!$store.state.user" @click="login">点击登陆</a>
-            <div v-if="$store.state.user">
-                <h2 class="pui-section-title">总记录（{{ objects.length }}）</h2>
+            <div class="container" v-if="$store.state.user">
+                <h2 class="pui-section—title">总记录（{{ objects.length }}）</h2>
                 <div class="empty" v-if="!objects.length">没有记录</div>
                 <ul class="record-list">
                     <li class="item" v-for="item, index in objects" :key="index">
                         <router-link class="link" :to="`/heights/${item.id}`">
                             <div class="info">
                                 <div class="name">
-                                    {{ item.distance }} 
-                                    <span class="unit">km</span>
+                                    {{ item.number }} 
+                                    <span class="unit">个</span>
                                 </div>
                                 <div class="note">{{ item.note }}</div>
                             </div>
@@ -23,8 +23,6 @@
 
                     </li>
                 </ul>
-
-
             </div>
         </div>
         <ui-float-button class="float-button" icon="add" secondary @click="add" />
@@ -42,7 +40,6 @@
             return {
                 keyword: '',
                 objects: [],
-                stat: null,
                 page: {
                     menu: [
                         // {
@@ -88,26 +85,11 @@
                 // this.userId = this.$route.params.id
                 this.keyword = keyword
                 // let { date } = this.$route.query
-                this.$http.get(`/cycle/logs`).then(
+                this.$http.get(`/squats`).then(
                     response => {
                         let data = response.data
                         console.log(data)
                         this.objects = data
-                    },
-                    response => {
-                        console.log('cuol')
-                        if (response.code === 403) {
-                            this.$store.state.user = null
-                        }
-                        this.loading = false
-                    })
-                this.$http.get(`/running/stat`).then(
-                    response => {
-                        let data = response.data
-                        console.log('stat', data)
-                        this.stat = data
-                        this.stat.time.data = `${Math.floor(this.stat.time.time / 60)}′${this.stat.time.time % 60}〃`
-                        this.stat.speed.data = `${Math.floor(this.stat.speed.speed / 60)}′${this.stat.speed.speed % 60}〃`
                     },
                     response => {
                         console.log('cuol')
@@ -121,7 +103,7 @@
                 this.$router.push(`/records/${item.id}`)
             },
             add() {
-                this.$router.push('/cycle/add')
+                this.$router.push('/squat/add')
             },
             sign(item, index) {
                 this.list[index].times++
@@ -238,11 +220,12 @@
 }
 .container {
     max-width: 400px;
+    margin: 0 auto;
 }
-// .section—title {
-//     font-size: 24px;
-//     margin: 16px 0;
-// }
+.section—title {
+    font-size: 24px;
+    margin: 16px 0;
+}
 .quick-list {
     display: flex;
     flex-wrap: wrap;

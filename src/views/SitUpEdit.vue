@@ -2,7 +2,7 @@
     <my-page title="添加仰卧起坐" :page="page" backable>
         <div class="common-container">
             <div>
-                <ui-text-field v-model.number="form.number" label="数量（个）" hintText=""/>
+                <ui-text-field v-model.number="form.number" type="number" label="数量（个）" hintText=""/>
             </div>
             <div class="btns">
                 <ui-raised-button label="添加" class="btn" primary @click="save"/>

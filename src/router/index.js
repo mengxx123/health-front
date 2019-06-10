@@ -40,6 +40,9 @@ const PushUpEdit = resolve => require(['@/views/PushUpEdit'], resolve)
 const SitUp = resolve => require(['@/views/SitUp'], resolve)
 const SitUpEdit = resolve => require(['@/views/SitUpEdit'], resolve)
 
+const Squat = resolve => require(['@/views/Squat'], resolve)
+const SquatEdit = resolve => require(['@/views/SquatEdit'], resolve)
+
 const MedicalTable = resolve => require(['@/views/MedicalTable'], resolve)
 const Me = resolve => require(['@/views/Me'], resolve)
 const Sport = resolve => require(['@/views/Sport'], resolve)
@@ -102,6 +105,15 @@ let routes = [
     {
         path: '/sitUp/add',
         component: SitUpEdit
+    },
+
+    {
+        path: '/squat',
+        component: Squat
+    },
+    {
+        path: '/squat/add',
+        component: SquatEdit
     },
 
     //

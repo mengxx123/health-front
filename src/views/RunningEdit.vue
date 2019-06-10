@@ -2,7 +2,7 @@
     <my-page title="添加跑步记录" :page="page" backable>
         <div class="common-container">
             <div>
-                <ui-text-field v-model.number="distance" label="距离" hintText=""/>
+                <ui-text-field v-model.number="distance" type="number" label="距离（km）" hintText=""/>
             </div>
             <div>
                 <ui-text-field v-model.number="minute" type="number" label="分钟" hintText=""/>

@@ -6,15 +6,53 @@
 
                 <div class="runing-box">
                     <div v-if="isStart">
-                        <div>跑步中...</div>
-                        <ui-raised-button class="btn" secondary label="结束跑步" @click="endRun" />
+                        <div class="state">跑步中...</div>
                     </div>
-                    <div v-else>
-                        <ui-raised-button class="btn" primary label="开始跑步" @click="startRun" />
+                    <div class="btns">
+                        <ui-raised-button class="btn" secondary label="结束跑步" @click="endRun" v-if="isStart" />
+                        <ui-raised-button class="btn" primary label="开始跑步" @click="startRun" v-if="!isStart" />
+                        <ui-raised-button class="btn" label="取消" @click="cancel" v-if="isStart" />
                     </div>
+
                 </div>
 
                 <ul class="data-list" v-if="stat">
+                    <li class="item">
+                        <div class="title">今日</div>
+                        <div class="content">
+                            <div class="value">
+                                <div class="number">{{ stat.day }}</div>
+                                <div class="unit">公里</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">本周</div>
+                        <div class="content">
+                            <div class="value">
+                                <div class="number">{{ stat.week }}</div>
+                                <div class="unit">公里</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">本月</div>
+                        <div class="content">
+                            <div class="value">
+                                <div class="number">{{ stat.month }}</div>
+                                <div class="unit">公里</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">一年内</div>
+                        <div class="content">
+                            <div class="value">
+                                <div class="number">{{ stat.year }}</div>
+                                <div class="unit">公里</div>
+                            </div>
+                        </div>
+                    </li>
                     <li class="item">
                         <div class="title">累计跑步距离</div>
                         <div class="content">
@@ -81,8 +119,6 @@
 
                     </li>
                 </ul>
-
-
             </div>
         </div>
         <ui-float-button class="float-button" icon="add" secondary @click="add" />
@@ -129,12 +165,18 @@
             }
             this.date = date
             this.loadData()
+
+            this.isStart = this.$storage.get('isStart', false)
+            if (this.isStart) {
+                this.startTime = this.$storage.get('startTime', false)
+            }
         },
         methods: {
             startRun() {
                 this.isStart = true
                 this.startTime = new Date().getTime()
                 this.$storage.set('isStart', this.isStart)
+                this.$storage.set('startTime', this.startTime)
             },
             endRun() {
                 this.isStart = false
@@ -142,6 +184,10 @@
                 let time = new Date().getTime() - this.startTime
                 // alert(time)
                 this.$router.push(`/running/add?time=${time}`)
+            },
+            cancel() {
+                this.isStart = false
+                this.$storage.set('isStart', this.isStart)
             },
             clearKeyword() {
                 this.keyword = ''
@@ -302,6 +348,18 @@
 </script>
 
 <style lang="scss" scoped>
+.state {
+    padding: 80px 0;
+    text-align: center;
+    font-size: 16px;
+}
+.btns {
+    margin-bottom: 24px;
+    text-align: center;
+    .btn {
+        margin-right: 8px;
+    }
+}
 .runing-box {
     margin-bottom: 16px;
 }

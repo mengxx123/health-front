@@ -1,7 +1,6 @@
 <template>
-    <my-page title="添加俯卧撑" :page="page" backable>
+    <my-page title="添加深蹲" :page="page" backable>
         <div class="common-container">
-
             <div>
                 <ui-text-field v-model.number="form.number" type="number" label="数量（个）" hintText=""/>
             </div>
@@ -52,7 +51,7 @@
                     return
                 }
 
-                this.$http.post(`/pushUps`, {
+                this.$http.post(`/squats`, {
                     number: this.form.number
                 }).then(
                     response => {

@@ -77,6 +77,20 @@
                         </router-link>
                     </li>
                     <div v-else>没有仰卧起坐数据</div>
+
+                    <li class="item2" v-if="squat">
+                        <router-link class="item linkable" to="squat">
+                            <div class="title">深蹲</div>
+                            <div class="content">
+                                <div class="value">
+                                    <div class="number">{{ squat.number }}</div>
+                                    <div class="unit">个</div>
+                                </div>
+                                <div class="time">{{ squat.recordTime }}</div>
+                            </div>
+                        </router-link>
+                    </li>
+                    <div v-else>没有深度数据</div>
                 </ul>
                 
                 <!-- <div class="pui-section-title">应用推荐（开发中）</div> -->
@@ -103,8 +117,16 @@
                 running: null,
                 walk: null,
                 cycle: null,
+                squat: null,
                 page: {
                     menu: [
+                        {
+                            type: 'icon',
+                            icon: 'help',
+                            href: 'https://project.yunser.com/products/4b47ff50891c11e9a434d5316e911a7d',
+                            target: '_blank',
+                            title: '帮助'
+                        }
                     ]
                 }
             }
@@ -229,6 +251,20 @@
                         console.log('latest2', data)
                         this.sitUp = data
                         this.sitUp.recordTime = moment(this.sitUp.recordTime).format('YYYY-MM-DD HH:mm')
+                    },
+                    response => {
+                        console.log('cuol')
+                        if (response.code === 403) {
+                            this.$store.state.user = null
+                        }
+                        this.loading = false
+                    })
+                this.$http.get(`/squats/latest`).then(
+                    response => {
+                        let data = response.data
+                        console.log('latest2', data)
+                        this.squat = data
+                        this.squat.recordTime = moment(this.squat.recordTime).format('YYYY-MM-DD HH:mm')
                     },
                     response => {
                         console.log('cuol')
