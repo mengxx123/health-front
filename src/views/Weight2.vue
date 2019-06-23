@@ -7,7 +7,7 @@
                 <div class="empty" v-if="!objects.length">没有记录</div>
                 <ul class="record-list">
                     <li class="item" v-for="item, index in objects" :key="index">
-                        <router-link class="link" :to="`/heights/${item.id}`">
+                        <router-link class="link" :to="`/weights/${item.id}`">
                             <div class="info">
                                 <div class="name">
                                     {{ item.weight }} 

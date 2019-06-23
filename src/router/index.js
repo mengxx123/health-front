@@ -10,8 +10,9 @@ const HeightEdit = resolve => require(['@/views/HeightEdit'], resolve)
 
 const Weight2 = resolve => require(['@/views/Weight2'], resolve)
 const Weight = resolve => require(['@/views/Weight'], resolve)
-
 const WeightEdit = resolve => require(['@/views/WeightEdit'], resolve)
+const WeightDetail = resolve => require(['@/views/WeightDetail'], resolve)
+
 const Timeline = resolve => require(['@/views/Timeline'], resolve)
 const HeartRate = resolve => require(['@/views/HeartRate'], resolve)
 
@@ -129,6 +130,10 @@ let routes = [
     {
         path: '/weight2',
         component: Weight2
+    },
+    {
+        path: '/weights/:id',
+        component: WeightDetail
     },
     {
         path: '/help',

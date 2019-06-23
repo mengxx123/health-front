@@ -4,7 +4,12 @@
 
             <div>
                 <ui-text-field v-model.number="weight" label="体重" hintText=""/>
+                <ui-select-field class="unit" v-model="unit" label="">
+                    <ui-menu-item value="kg" title="公斤"/>
+                    <ui-menu-item value="jin" title="斤"/>
+                </ui-select-field>
             </div>
+
             <div class="btns">
                 <ui-raised-button label="添加" class="btn" primary @click="save"/>
             </div>
@@ -17,6 +22,7 @@
     export default {
         data () {
             return {
+                unit: 'kg',
                 height: null,
                 weight: null,
                 second: 60,
@@ -48,9 +54,13 @@
                     })
                     return
                 }
+                let weight = this.weight
+                if (this.unit === 'jin') {
+                    weight = (weight / 2).toFixed(2)
+                }
 
                 this.$http.post(`/weights`, {
-                    weight: this.weight
+                    weight
                 }).then(
                     response => {
                         let data = response.data
@@ -95,5 +105,11 @@
             color: #f60;
             font-weight: bold;
         }
+    }
+    .unit {
+        position: relative;
+        top: 10px;
+        // margin-bottom: 0;
+        width: 80px;
     }
 </style>
