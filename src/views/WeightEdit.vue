@@ -1,18 +1,24 @@
 <template>
-    <my-page title="添加体重记录" :page="page" backable>
+    <my-page title="编辑体重记录" :page="page" backable>
         <div class="common-container">
+            <div v-if="weight">
+                <div>
+                    <ui-text-field v-model.number="weight.weight" type="number" label="体重" hintText=""/>
+                    <ui-select-field class="unit" v-model="unit" label="">
+                        <ui-menu-item value="kg" title="公斤"/>
+                        <ui-menu-item value="jin" title="斤"/>
+                    </ui-select-field>
+                </div>
 
-            <div>
-                <ui-text-field v-model.number="weight" label="体重" hintText=""/>
-                <ui-select-field class="unit" v-model="unit" label="">
-                    <ui-menu-item value="kg" title="公斤"/>
-                    <ui-menu-item value="jin" title="斤"/>
-                </ui-select-field>
+                <div>
+                    <ui-text-field v-model="weight.note" label="备注" hintText=""/>
+                </div>
+
+                <div class="btns">
+                    <ui-raised-button label="保存" class="btn" primary @click="save"/>
+                </div>
             </div>
 
-            <div class="btns">
-                <ui-raised-button label="添加" class="btn" primary @click="save"/>
-            </div>
         </div>
     </my-page>
 </template>
@@ -23,8 +29,9 @@
         data () {
             return {
                 unit: 'kg',
-                height: null,
                 weight: null,
+                // height: null,
+                // weight: null,
                 second: 60,
                 result: null,
                 page: {
@@ -41,41 +48,84 @@
             }
         },
         mounted() {
+            this.objectId = this.$route.params.id
+            if (this.objectId) {
+                this.$http.get(`/weights/${this.objectId}`).then(
+                    response => {
+                        let data = response.data
+                        console.log('latest2', data)
+                        this.weight = data
+                        // this.$message({
+                        //     type: 'success',
+                        //     text: '添加成功'
+                        // })
+                        // this.$router.go(-1)
+                    },
+                    response => {
+                        console.log('cuol')
+                        this.loading = false
+                    })
+            } else {
+                this.weight = {
+                    weight: null,
+                    note: ''
+                }
+            }
         },
         methods: {
             reset() {
                 this.result = this.age = null
             },
             save() {
-                if (!this.weight) {
+                if (!this.weight.weight) {
                     this.$message({
                         type: 'danger',
                         text: '请输入体重'
                     })
                     return
                 }
-                let weight = this.weight
+                let weight = this.weight.weight
                 if (this.unit === 'jin') {
                     weight = (weight / 2).toFixed(2)
                 }
 
-                this.$http.post(`/weights`, {
-                    weight
-                }).then(
-                    response => {
-                        let data = response.data
-                        console.log('latest2', data)
-                        this.$message({
-                            type: 'success',
-                            text: '添加成功'
+                if (this.objectId) {
+                    this.$http.put(`/weights/${this.objectId}`, {
+                        ...this.weight,
+                        weight
+                    }).then(
+                        response => {
+                            let data = response.data
+                            console.log('latest2', data)
+                            this.$message({
+                                type: 'success',
+                                text: '保存成功'
+                            })
+                            this.$router.go(-1)
+                        },
+                        response => {
+                            console.log('cuol')
+                            this.loading = false
                         })
-                        this.$router.go(-1)
-                    },
-                    response => {
-                        console.log('cuol')
-                        this.loading = false
-                    })
-
+                } else {
+                    this.$http.post(`/weights`, {
+                        ...this.weight,
+                        weight
+                    }).then(
+                        response => {
+                            let data = response.data
+                            console.log('latest2', data)
+                            this.$message({
+                                type: 'success',
+                                text: '保存成功'
+                            })
+                            this.$router.go(-1)
+                        },
+                        response => {
+                            console.log('cuol')
+                            this.loading = false
+                        })
+                }
             },
         }
     }

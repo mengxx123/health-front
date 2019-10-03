@@ -8,7 +8,7 @@
                 <ui-list-item title="应用" to="/">
                     <ui-icon slot="left" value="home"/>
                 </ui-list-item>
-                <ui-list-item title="健康数据" to="/me">
+                <ui-list-item title="健康管理" to="/me">
                     <ui-icon slot="left" value="grade"/>
                 </ui-list-item>
                 <ui-list-item title="运动" to="/sport">

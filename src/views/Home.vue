@@ -21,6 +21,12 @@
                                 to: '/bmi'
                             },
                             {
+                                name: '喝水',
+                                desc: '',
+                                icon: '/static/img/health_blood.svg',
+                                to: '/water'
+                            },
+                            {
                                 name: '体重记录',
                                 desc: '',
                                 icon: '/static/img/health_bmi.svg',
@@ -45,6 +51,12 @@
                                 to: 'xxx',
                                 href: 'https://util.yunser.com/blind',
                                 target: '_blank'
+                            },
+                            {
+                                name: '运动计时',
+                                desc: '',
+                                icon: 'https://icons.yunser.com/icons/tool.svg',
+                                to: '/timer'
                             }
                         ]
                     },

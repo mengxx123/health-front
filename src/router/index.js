@@ -7,6 +7,7 @@ const Help = resolve => require(['@/views/Help'], resolve)
 
 const Height = resolve => require(['@/views/Height'], resolve)
 const HeightEdit = resolve => require(['@/views/HeightEdit'], resolve)
+const HeightDetail = resolve => require(['@/views/HeightDetail'], resolve)
 
 const Weight2 = resolve => require(['@/views/Weight2'], resolve)
 const Weight = resolve => require(['@/views/Weight'], resolve)
@@ -47,6 +48,12 @@ const SquatEdit = resolve => require(['@/views/SquatEdit'], resolve)
 const MedicalTable = resolve => require(['@/views/MedicalTable'], resolve)
 const Me = resolve => require(['@/views/Me'], resolve)
 const Sport = resolve => require(['@/views/Sport'], resolve)
+
+const Water = resolve => require(['@/views/Water'], resolve)
+const WaterDetail = resolve => require(['@/views/WaterDetail'], resolve)
+const WaterEdit = resolve => require(['@/views/WaterEdit'], resolve)
+
+const Timer = resolve => require(['@/views/Timer'], resolve)
 
 const Error404 = resolve => require(['@/views/error/Error404'], resolve)
 const OauthCallback = resolve => require(['@/views/oauth/Callback'], resolve)
@@ -123,6 +130,14 @@ let routes = [
         component: Height
     },
     {
+        path: '/heights/:id',
+        component: HeightDetail
+    },
+    {
+        path: '/heights/:id/edit',
+        component: HeightEdit
+    },
+    {
         path: '/height/add',
         component: HeightEdit
     },
@@ -145,6 +160,10 @@ let routes = [
     },
     {
         path: '/weight/add',
+        component: WeightEdit
+    },
+    {
+        path: '/weights/:id/edit',
         component: WeightEdit
     },
     {
@@ -200,8 +219,29 @@ let routes = [
         component: Error404
     },
     {
+        path: '/water',
+        component: Water
+    },
+    {
+        path: '/waters/:id',
+        component: WaterDetail
+    },
+    {
+        path: '/waters/:id/edit',
+        component: WaterEdit
+    },
+    {
+        path: '/water/add',
+        component: WaterEdit
+    },
+    {
         path: '/oauth/callback',
         component: OauthCallback
+    },
+
+    {
+        path: '/timer',
+        component: Timer
     },
     {
         path: '*',

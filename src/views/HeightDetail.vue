@@ -1,8 +1,8 @@
 <template>
-    <my-page title="体重详情" :page="page" backable>
+    <my-page title="身高详情" :page="page" backable>
         <div class="common-container container" v-if="myObject">
             <ui-article>
-                <p>体重：{{ myObject.weight }}</p>
+                <p>身高：{{ myObject.height }}</p>
                 <p>备注：{{ myObject.note }}</p>
                 <p>时间：{{ myObject.recordTime }}</p>
             </ui-article>
@@ -49,7 +49,7 @@
         },
         methods: {
             loadData() {
-                this.$http.get(`/weights/${this.ObjectId}`).then(
+                this.$http.get(`/heights/${this.ObjectId}`).then(
                     response => {
                         let data = response.data
                         console.log(data)
@@ -76,7 +76,7 @@
                     })
             },
             edit() {
-                this.$router.push(`/weights/${this.$route.params.id}/edit`)
+                this.$router.push(`/heights/${this.$route.params.id}/edit`)
             },
             finish() {
                 if (!this.record.content) {
@@ -132,7 +132,7 @@
                 if (!ret) {
                     return
                 }
-                this.$http.delete(`/weights/${this.myObject.id}`).then(
+                this.$http.delete(`/heights/${this.myObject.id}`).then(
                     response => {
                         // let data = response.data
                         this.$router.go(-1)

@@ -1,5 +1,5 @@
 <template>
-    <my-page title="健康数据" :page="page">
+    <my-page title="健康管理" :page="page">
         <div>
             <a href="javascript:;" v-if="!$store.state.user" @click="login">点击登陆</a>
         </div>
@@ -85,6 +85,13 @@
                 cycle: null,
                 page: {
                     menu: [
+                        {
+                            type: 'icon',
+                            icon: 'help',
+                            href: 'https://project.yunser.com/products/6f11c18099d111e9a1ab97c6b9c075bb',
+                            target: '_blank',
+                            title: '帮助'
+                        }
                     ]
                 }
             }

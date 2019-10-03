@@ -1,5 +1,5 @@
 <template>
-    <my-page title="体重" :page="page">
+    <my-page title="喝水" :page="page">
         <div class="common-container">
             <a href="javascript:;" v-if="!$store.state.user" @click="login">点击登陆</a>
             <div class="container" v-if="$store.state.user">
@@ -7,11 +7,11 @@
                 <div class="empty" v-if="!objects.length">没有记录</div>
                 <ul class="record-list">
                     <li class="item" v-for="item, index in objects" :key="index">
-                        <router-link class="link" :to="`/weights/${item.id}`">
+                        <router-link class="link" :to="`/waters/${item.id}`">
                             <div class="info">
                                 <div class="name">
-                                    {{ item.weight }} 
-                                    <span class="unit">公斤</span>
+                                    {{ item.number }} 
+                                    <span class="unit">mL</span>
                                 </div>
                                 <!-- <div class="note">{{ item.note }}</div> -->
                             </div>
@@ -45,7 +45,7 @@
                         {
                             type: 'icon',
                             icon: 'help',
-                            href: 'https://project.yunser.com/products/613c797068c511e9ba3a17af62d5e8d5',
+                            href: 'https://project.yunser.com/products/81317c909e7f11e98ae6192cda3af94b',
                             target: '_blank',
                             title: '帮助'
                         },
@@ -79,7 +79,7 @@
                 // this.userId = this.$route.params.id
                 this.keyword = keyword
                 // let { date } = this.$route.query
-                this.$http.get(`/weights`).then(
+                this.$http.get(`/water/logs`).then(
                     response => {
                         let data = response.data
                         console.log(data)
@@ -97,7 +97,7 @@
                 this.$router.push(`/records/${item.id}`)
             },
             add() {
-                this.$router.push('/weight/add')
+                this.$router.push('/water/add')
             },
             sign(item, index) {
                 this.list[index].times++

@@ -3,7 +3,7 @@
         <div class="common-container">
             <a href="javascript:;" v-if="!$store.state.user" @click="login">点击登陆</a>
             <div class="container" v-if="$store.state.user">
-                <h2 class="pui-section—title">总记录（{{ objects.length }}）</h2>
+                <!-- <h2 class="pui-section—title">总记录（{{ objects.length }}）</h2> -->
                 <div class="empty" v-if="!objects.length">没有记录</div>
                 <ul class="record-list">
                     <li class="item" v-for="item, index in objects" :key="index">
@@ -13,7 +13,7 @@
                                     {{ item.height }} 
                                     <span class="unit">厘米</span>
                                 </div>
-                                <div class="note">{{ item.note }}</div>
+                                <!-- <div class="note">{{ item.note }}</div> -->
                             </div>
                         </router-link>
                         <div class="time">{{ item.recordTime | time }}</div>

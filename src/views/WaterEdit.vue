@@ -1,9 +1,9 @@
 <template>
-    <my-page title="编辑身高" :page="page" backable>
+    <my-page title="编辑喝水记录" :page="page" backable>
         <div class="common-container">
             <div v-if="myObject">
                 <div>
-                    <ui-text-field v-model.number="myObject.height" type="number" label="身高" hintText=""/>
+                    <ui-text-field v-model.number="myObject.number" type="number" label="容量" hintText=""/>
                 </div>
                 <div>
                     <ui-text-field v-model="myObject.note" label="备注" hintText=""/>
@@ -22,7 +22,7 @@
         data () {
             return {
                 myObject: {
-                    height: null,
+                    number: null,
                     note: '',
                 },
                 page: {
@@ -41,7 +41,7 @@
         mounted() {
             this.objectId = this.$route.params.id
             if (this.objectId) {
-                this.$http.get(`/heights/${this.objectId}`, this.myObject).then(
+                this.$http.get(`/water/logs/${this.objectId}`, this.myObject).then(
                     response => {
                         let data = response.data
                         console.log('latest2', data)
@@ -59,15 +59,15 @@
                 this.result = this.age = null
             },
             save2() {
-                if (!this.myObject.height) {
+                if (!this.myObject.number) {
                     this.$message({
                         type: 'danger',
-                        text: '请输入身高'
+                        text: '请输入容量'
                     })
                     return
                 }
                 if (this.objectId) {
-                    this.$http.put(`/heights/${this.objectId}`, this.myObject).then(
+                    this.$http.put(`/water/logs/${this.objectId}`, this.myObject).then(
                     response => {
                         let data = response.data
                         console.log('latest2', data)
@@ -82,7 +82,7 @@
                         this.loading = false
                     })
                 } else {
-                    this.$http.post(`/heights`, this.myObject).then(
+                    this.$http.post(`/water/logs`, this.myObject).then(
                     response => {
                         let data = response.data
                         console.log('latest2', data)
